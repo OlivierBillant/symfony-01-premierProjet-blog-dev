@@ -1,36 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Accueil</title>
-</head>
-<body>
-    {# Création d'une variable sur twig #}
-    {% set menu = ["Accueil","Blog","Contact","A propos"]  %}
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            {# Début de la boucle #}
-                {% for ele in menu %}
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">{{ele}}</a>
-                    </li> 
-                {% endfor %}
-            {# Fin de la boucle  #}
-            </ul>
-          </div>
-        </div>
-      </nav>
+{% extends "base.html.twig" %}
 
-    <h1>Accueil</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-</body>
-</html>
+{% block titre %}
+    Accueil
+{% endblock %}
+
+{% block main %}
+    <div class="row title text-center mt-5">
+        <h1>Accueil</h1>
+        {% set colors = ["Red","Green","Blue","Black","Orange","Yellow"] %}
+        <p> {{ colors|join("-") }} </p>
+
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, ipsam? Nostrum rem voluptate commodi, distinctio suscipit nisi necessitatibus nam, voluptatem vitae modi, saepe ut quibusdam? Mollitia perspiciatis sit eligendi voluptatibus!
+        </p>
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, ipsam? Nostrum rem voluptate commodi, distinctio suscipit nisi necessitatibus nam, voluptatem vitae modi, saepe ut quibusdam? Mollitia perspiciatis sit eligendi voluptatibus!
+        </p>
+        <p><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt quisquam beatae inventore non, error hic sunt aut nam consectetur tenetur aliquid quam. Veritatis provident doloremque vel totam esse iste dolores!</span><span>Odit molestiae deserunt unde officia, laborum maxime quas. Numquam, inventore accusamus! Ea libero, nemo, adipisci assumenda sunt vero non, ipsum eum perferendis voluptatum iure maxime animi quia laborum reiciendis consequatur.</span><span>Perspiciatis quisquam minus dignissimos quidem delectus eligendi praesentium, voluptate repudiandae non, labore voluptatem illum voluptates tempore nobis magni natus, reprehenderit corporis possimus quia? Ab enim facilis, voluptates delectus et tempore.</span><span>Ut eveniet fugiat iure in, voluptatum debitis dolores at! Vel aperiam itaque labore quasi deserunt, reprehenderit excepturi id earum porro error, ratione consequuntur modi illo harum sunt. Voluptatibus, obcaecati quibusdam!</span><span>Quas, hic. Quibusdam, quo voluptas cupiditate exercitationem eveniet iure odit? Distinctio, blanditiis nulla consequatur cumque quos ullam deleniti similique a numquam cupiditate. Maxime nobis voluptates suscipit quaerat consectetur officia aliquid.</span><span>Quaerat eaque numquam, nobis perspiciatis architecto vero quis et cum omnis eos quas, iste blanditiis reiciendis ipsam molestias nesciunt adipisci beatae. Ab eveniet sint tempora iusto blanditiis eum maiores error?</span><span>Repellendus laudantium cupiditate soluta quam, commodi quo reprehenderit id beatae tempore, non minus esse aspernatur autem. Eveniet fugit assumenda ad odio magni, vel eius numquam, hic maiores qui debitis dicta.</span><span>Velit dicta tenetur exercitationem magnam fugit aspernatur cum laudantium? Modi ea, labore perspiciatis est ipsam consequatur minima sit possimus expedita voluptates odio beatae odit consequuntur aut laudantium porro excepturi voluptatibus.</span><span>Eos incidunt adipisci sint deserunt architecto ex nihil hic vero eveniet, iure nulla a quam magnam explicabo quod error excepturi minus eaque obcaecati totam ad repudiandae doloremque impedit exercitationem! Eum.</span><span>Reprehenderit sapiente eveniet omnis possimus harum ex, quod cum recusandae aut quam nisi magni. Aspernatur facilis, quae nam incidunt reiciendis odio. Suscipit sed vel voluptas ut minus earum debitis quibusdam!</span></p>
+    </div>
+{% endblock %}
