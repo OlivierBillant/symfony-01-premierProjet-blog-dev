@@ -1,0 +1,16 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block titre %}
+	Contact
+{% endblock %}
+
+{% block main %}
+	<div class="row title text-center mt-5">
+		<h1>CONTACT</h1>
+		{% set colors = ["Red","Green","Blue","Black","Orange","Yellow"] %}
+		<p>
+			{{ colors|join("-") }}
+		</p>
+
+	</div>
+{% endblock %}
