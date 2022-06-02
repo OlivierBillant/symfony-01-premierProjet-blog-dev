@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
@@ -36,12 +37,12 @@ class ArticleController extends AbstractController
     }
 
 
-     /**
+    /**
      * @Route("/article2", name="app_article2")
      */
     public function index2(EntityManagerInterface $em): Response
     {
-    // Ici on procède à une infection de dépendance directement dans les arguments de la fonction
+        // Ici on procède à une infection de dépendance directement dans les arguments de la fonction
 
         // Instancier un article
         // L'ajouter a la db via l'EM
@@ -56,4 +57,40 @@ class ArticleController extends AbstractController
             'controller_name' => 'ArticleController',
         ]);
     }
+
+    // Les methodes de Read 
+
+    // Lire un seul article
+
+    /**
+     * @Route("/lire-article1", name="app_lire_article1")
+     */
+    public function oneArticle1(ArticleRepository $ArticleRepo): Response
+    {
+        dd($ArticleRepo->find(2));
+    }
+
+    /**
+     * @Route("/lire-article2", name="app_lire_article2")
+     */
+    public function oneArticle2(): Response
+    {
+        
+        $ArticleRepo = $this->getDoctrine()->getRepository(Article::class);
+        dd($ArticleRepo->find(1));
+    }
+
+    /**
+     * @Route("/lire-article3", name="app_lire_article3")
+     */
+    public function oneArticle3(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ArticleRepo = $em->getRepository(Article::class);
+        dd($ArticleRepo->find(2));
+    }
+
+
+
+
 }
