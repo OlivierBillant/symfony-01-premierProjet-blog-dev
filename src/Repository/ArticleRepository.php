@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,18 @@ class ArticleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByName($name)
+    {
+      
+        $em = $this->getEntityManager();
+        $dql = "
+        SELECT a FROM App\Entity\Article a
+        WHERE a.name LIKE '%$name%'
+        ";
+        $query = $em->createQuery($dql);
+        return $query->getResult();
     }
 
 //    /**

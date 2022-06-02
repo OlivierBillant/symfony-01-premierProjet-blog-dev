@@ -18,10 +18,18 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $ArticleRepo, $id): Response
     {
-
-
         return $this->render('article/index.html.twig', [
-            "article"=>$ArticleRepo->find($id)
+            "article" => $ArticleRepo->find($id)
         ]);
+    }
+
+    /**
+     * @Route("/article/recherche/{name}", name="app_article-search")
+     */
+    public function search(ArticleRepository $ArticleRepo, $name): Response
+    {
+
+        dd($ArticleRepo->findByName($name));
+        return $this->render('article/index.html.twig');
     }
 }
