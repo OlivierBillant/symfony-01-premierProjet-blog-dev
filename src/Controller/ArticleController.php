@@ -24,12 +24,22 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/recherche/{name}", name="app_article-search")
+     * @Route("/article/recherche/{name}", requirements={"name"="[a-zA-Z]+"}, name="app_article_search_name")
      */
-    public function search(ArticleRepository $ArticleRepo, $name): Response
+    public function searchName(ArticleRepository $ArticleRepo, $name): Response
     {
 
         dd($ArticleRepo->findByName($name));
+        return $this->render('article/index.html.twig');
+    }
+
+    /**
+     * @Route("/article/recherche/{op}/{price}", requirements={"op"="[a-zA-Z]{2}", "price"="[0-9]+\.{0,1}[0-9]+"}, name="app_article_search_price")
+     */
+    public function searchPrice(ArticleRepository $ArticleRepo, $price, $op): Response
+    {
+
+        dd($ArticleRepo->findByPrice($price, $op));
         return $this->render('article/index.html.twig');
     }
 }

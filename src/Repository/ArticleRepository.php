@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -42,38 +43,50 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findByName($name)
     {
-      
+
         $em = $this->getEntityManager();
         $dql = "
         SELECT a FROM App\Entity\Article a
-        WHERE a.name LIKE '%$name%'
+        WHERE a.name LIKE :name
         ";
         $query = $em->createQuery($dql);
+        $query->setParameter("name", "%$name%");
         return $query->getResult();
     }
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByPrice($price, $op="eq")
+    {
+        $queryBuilder = $this->createQueryBuilder("a");
+        if($op=="eq") $queryBuilder->andWhere("a.price = :price");
+        if($op=="gt") $queryBuilder->andWhere("a.price >= :price");
+        if($op=="lt") $queryBuilder->andWhere("a.price <= :price");
+        $query = $queryBuilder->getQuery();
+        $query->setParameter("price", $price);
+        return $query->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Article
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Article[] Returns an array of Article objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('a')
+    //            ->andWhere('a.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('a.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Article
+    //    {
+    //        return $this->createQueryBuilder('a')
+    //            ->andWhere('a.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
