@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Votre article {{ article.name }}</h1>
 
-    This friendly message is coming from:
+    A les informations suivantes
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/obillant2022/Documents/Symfony/blog_dev/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/obillant2022/Documents/Symfony/blog_dev/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
+        <li>Nom {{ article.name }}</li>
+        <li>Description {{ article.description }}</li>
+        <li>Prix {{ article.price }}</li>
+   
     </ul>
 </div>
 {% endblock %}
