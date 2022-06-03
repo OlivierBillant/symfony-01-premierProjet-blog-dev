@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -75,22 +77,23 @@ class ArticleController extends AbstractController
      */
     public function oneArticle2(): Response
     {
-        
+
         $ArticleRepo = $this->getDoctrine()->getRepository(Article::class);
         dd($ArticleRepo->find(1));
     }
 
     /**
-     * @Route("/lire-article3", name="app_lire_article3")
+     * @Route("/add-article", name="app_add_article")
      */
-    public function oneArticle3(): Response
+    public function addArticle(ArticleRepository $ArticleRepo, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ArticleRepo = $em->getRepository(Article::class);
-        dd($ArticleRepo->find(2));
+        $article = new Article();
+        $articleForm = $this->createForm(ArticleType::class, $article);
+        $articleForm->handleRequest($request);
+
+        if($articleForm->isSubmitted()){
+            $ArticleRepo->add($article, true);
+        }
+        return $this->render("article/ajouter.html.twig", ["articleForm" => $articleForm->createView()]);
     }
-
-
-
-
 }
