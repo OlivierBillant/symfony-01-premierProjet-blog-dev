@@ -3,23 +3,32 @@
 {% block titre %}{% endblock %}
 
 {% block main %}
+<h1 class="text-center mt-5">Ajouter une article</h1>
 	{# {{ form(articleForm)}} #}
 
 	{# Autre possibilité pour afficher le formulaire :
 				En déconstruisant les différents éléments d'un form_row, on 
 				aura le controle sur les différents élements _label, _widget, _erros #}
-
+<div class="col-6 offset-3 my-5">
 	{{form_start(articleForm)}}
-		<div = style="background-color:red">
-	{{form_row(articleForm.name)}}
-	</div>
-		<div>
-	{{form_row(articleForm.description)}}
-	</div>
-		<div>
-		{{form_row(articleForm.price)}}
-			<div>
-
-
-		{{form_end(articleForm)}}
+        <div = style="background-color:red">
+            {{form_row(articleForm.name)}}
+        </div>
+        <div>
+            {{form_row(articleForm.description)}}
+        </div>
+        {# On peut aussi modifier plus finement chacun des éléments #}
+        {# <div class="group">
+            {{form_label(articleForm.price)}}
+            {{form_widget(articleForm.price)}}
+            {{form_errors(articleForm.price)}}
+        </div> #}
+        <div>
+            {{form_row(articleForm.price)}}
+        </div>
+        <div = class="col-3 offset-6">
+            {{form_row(articleForm.Ajouter)}}
+        <div>
+    {{form_end(articleForm)}}
+</div>
 	{% endblock %}
