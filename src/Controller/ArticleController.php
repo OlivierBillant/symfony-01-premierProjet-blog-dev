@@ -102,8 +102,9 @@ class ArticleController extends AbstractController
 
         if ($articleForm->isSubmitted()) {
             $ArticleRepo->add($article, true);
-                return $this->redirectToRoute("app_listearticle");
-
+            // Ajouter un message de confirmation
+            $this->addFlash('success', 'Article ajouté');
+            return $this->redirectToRoute("app_listearticle");
         }
         return $this->render("article/ajouter.html.twig", ["articleForm" => $articleForm->createView()]);
     }
@@ -121,17 +122,16 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/supprimer/{id}", name="app_article_remove", requirements={"id"="\d+"})
      */
-    public function removeArticle(ArticleRepository $ArticleRepo, $id=null)
+    public function removeArticle(ArticleRepository $ArticleRepo, $id = null)
     {
-        if($id!=null){
-        $article = $ArticleRepo->find($id);
-        $ArticleRepo->remove($article,true);
+        if ($id != null) {
+            $article = $ArticleRepo->find($id);
+            $ArticleRepo->remove($article, true);
+        }
+        return $this->redirectToRoute("app_listearticle");
     }
-    return $this->redirectToRoute("app_listearticle");
 
-    }
-
-     /**
+    /**
      * @Route("/article/modifier/{id}", name="app_article_update", requirements={"id"="\d+"})
      */
     public function updateArticle(Article $article, Request $request, EntityManagerInterface $em)
@@ -140,8 +140,9 @@ class ArticleController extends AbstractController
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
         $em->flush();
+        // Ajouter un message de confirmation
+        $this->addFlash('success', 'Article modifié');
 
-    return $this->render("article/modifier.html.twig", ["articleForm" => $articleForm->createView()]);
-
+        return $this->render("article/modifier.html.twig", ["articleForm" => $articleForm->createView()]);
     }
 }

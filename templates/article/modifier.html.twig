@@ -11,7 +11,15 @@ Modifier un article
 	{# Autre possibilité pour afficher le formulaire :
 				En déconstruisant les différents éléments d'un form_row, on 
 				aura le controle sur les différents élements _label, _widget, _erros #}
+               
 <div class="col-6 offset-3 my-5">
+    <div class="row">
+        {% for label,messages in app.flashes %}
+            {% for message in messages %}
+            <span class="alert alert-{{label}}"> {{message}}</span>
+            {% endfor %}
+        {% endfor %}
+    </div>
 	{{form_start(articleForm)}}
         <div>
             {{form_row(articleForm.name)}}
