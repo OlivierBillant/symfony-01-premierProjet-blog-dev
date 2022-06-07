@@ -82,6 +82,14 @@ class ArticleController extends AbstractController
         dd($ArticleRepo->find(1));
     }
 
+    /**
+     * @Route("/lire-article3/{id}", name="app_lire_article3")
+     */
+    public function oneArticle3(ArticleRepository $ArticleRepo, $id): Response
+    {
+        dd($ArticleRepo->find($id));
+    }
+
     // ICI ON CREE UN FORMULAIRE
     /**
      * @Route("/add-article", name="app_add_article")
@@ -92,9 +100,34 @@ class ArticleController extends AbstractController
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
 
-        if($articleForm->isSubmitted()){
+        if ($articleForm->isSubmitted()) {
             $ArticleRepo->add($article, true);
+                return $this->redirectToRoute("app_listearticle");
+
         }
         return $this->render("article/ajouter.html.twig", ["articleForm" => $articleForm->createView()]);
+    }
+
+
+    /**
+     * @Route("/liste-article", name="app_listearticle")
+     */
+    public function listArticles(ArticleRepository $ArticleRepo)
+    {
+        $articleList = $ArticleRepo->findAll();
+        return $this->render("article/list.html.twig", ["articleList" => $articleList]);
+    }
+
+    /**
+     * @Route("/article/supprimer/{id}", name="app_article_remove", requirements={"id"="\d+"})
+     */
+    public function removeArticle(ArticleRepository $ArticleRepo, $id=null)
+    {
+        if($id!=null){
+        $article = $ArticleRepo->find($id);
+        $ArticleRepo->remove($article,true);
+    }
+    return $this->redirectToRoute("app_listearticle");
+
     }
 }
