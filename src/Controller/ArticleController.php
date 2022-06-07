@@ -92,7 +92,7 @@ class ArticleController extends AbstractController
 
     // ICI ON CREE UN FORMULAIRE
     /**
-     * @Route("/add-article", name="app_add_article")
+     * @Route("/article/ajouter", name="app_ajouterarticle")
      */
     public function addArticle(ArticleRepository $ArticleRepo, Request $request)
     {
@@ -100,7 +100,7 @@ class ArticleController extends AbstractController
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
 
-        if ($articleForm->isSubmitted()) {
+        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
             $ArticleRepo->add($article, true);
             // Ajouter un message de confirmation
             $this->addFlash('success', 'Article ajouté');
@@ -111,7 +111,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/liste-article", name="app_listearticle")
+     * @Route("/article/liste", name="app_listearticle")
      */
     public function listArticles(ArticleRepository $ArticleRepo)
     {
@@ -136,13 +136,24 @@ class ArticleController extends AbstractController
      */
     public function updateArticle(Article $article, Request $request, EntityManagerInterface $em)
     {
+
         // $article = new Article();
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
-        $em->flush();
-        // Ajouter un message de confirmation
-        $this->addFlash('success', 'Article modifié');
+        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+            $em->flush();
+            // Ajouter un message de confirmation
+            $this->addFlash('success', 'Article modifié');
 
+        }
         return $this->render("article/modifier.html.twig", ["articleForm" => $articleForm->createView()]);
+    }
+
+     /**
+     * @Route("/apropos", name="app_apropos")
+     */
+    public function apropos()
+    {
+        return $this->render("pages/apropos.html.twig");
     }
 }
