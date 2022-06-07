@@ -82,6 +82,7 @@ class ArticleController extends AbstractController
         dd($ArticleRepo->find(1));
     }
 
+    // ICI ON CREE UN FORMULAIRE
     /**
      * @Route("/add-article", name="app_add_article")
      */

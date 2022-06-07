@@ -1,9 +1,25 @@
 {% extends "layouts/base.html.twig" %}
 
-{% block titre %}
-
-{% endblock %}
+{% block titre %}{% endblock %}
 
 {% block main %}
-{{ form(articleForm)}}
-{% endblock %}
+	{# {{ form(articleForm)}} #}
+
+	{# Autre possibilité pour afficher le formulaire :
+				En déconstruisant les différents éléments d'un form_row, on 
+				aura le controle sur les différents élements _label, _widget, _erros #}
+
+	{{form_start(articleForm)}}
+		<div = style="background-color:red">
+	{{form_row(articleForm.name)}}
+	</div>
+		<div>
+	{{form_row(articleForm.description)}}
+	</div>
+		<div>
+		{{form_row(articleForm.price)}}
+			<div>
+
+
+		{{form_end(articleForm)}}
+	{% endblock %}
