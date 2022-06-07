@@ -23,7 +23,7 @@ class ArticleType extends AbstractType
             ->add('name', TextType::class, ["label" => "Nom"])
             ->add('description', TextareaType::class, ["label" => "Description"])
             ->add('price', NumberType::class, ["label" => "Prix"])
-            ->add('Ajouter', SubmitType::class)
+            // ->add('Ajouter', SubmitType::class)
         ;
     }
 

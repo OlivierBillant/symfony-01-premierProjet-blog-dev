@@ -130,4 +130,18 @@ class ArticleController extends AbstractController
     return $this->redirectToRoute("app_listearticle");
 
     }
+
+     /**
+     * @Route("/article/modifier/{id}", name="app_article_update", requirements={"id"="\d+"})
+     */
+    public function updateArticle(Article $article, Request $request, EntityManagerInterface $em)
+    {
+        // $article = new Article();
+        $articleForm = $this->createForm(ArticleType::class, $article);
+        $articleForm->handleRequest($request);
+        $em->flush();
+
+    return $this->render("article/modifier.html.twig", ["articleForm" => $articleForm->createView()]);
+
+    }
 }

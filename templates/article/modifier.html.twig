@@ -1,9 +1,11 @@
 {% extends "layouts/base.html.twig" %}
 
-{% block titre %}{% endblock %}
+{% block titre %}
+Modifier un article
+{% endblock %}
 
 {% block main %}
-<h1 class="text-center mt-5">Ajouter une article</h1>
+<h1 class="text-center mt-5">Modifier une article</h1>
 	{# {{ form(articleForm)}} #}
 
 	{# Autre possibilité pour afficher le formulaire :
@@ -11,7 +13,7 @@
 				aura le controle sur les différents élements _label, _widget, _erros #}
 <div class="col-6 offset-3 my-5">
 	{{form_start(articleForm)}}
-        <div = style="background-color:red">
+        <div>
             {{form_row(articleForm.name)}}
         </div>
         <div>
@@ -27,7 +29,7 @@
             {{form_row(articleForm.price)}}
         </div>
         <div = class="col-3 offset-6">
-            <button class="btn btn-primary" type="submit">Ajouter</button>
+            <button class="btn btn-primary" type="submit">Modifier</button>
         <div>
     {{form_end(articleForm)}}
 </div>
