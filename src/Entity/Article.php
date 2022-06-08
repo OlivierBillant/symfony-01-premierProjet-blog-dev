@@ -23,7 +23,7 @@ class Article
      * @Assert\NotBlank(message="Ce champ ne peut pas être vide")
      * @Assert\Length(
      * min=3,
-     * max=10,
+     * max=30,
      * minMessage="Trop court",
      * maxMessage="Trop Long"
      * )
