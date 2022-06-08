@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\User;
 use Doctrine\DBAL\Types\FloatType;
+use Doctrine\ORM\Mapping\Entity;
 use phpDocumentor\Reflection\Types\Float_;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -23,6 +26,9 @@ class ArticleType extends AbstractType
             ->add('name', TextType::class, ["label" => "Nom"])
             ->add('description', TextareaType::class, ["label" => "Description"])
             ->add('price', NumberType::class, ["label" => "Prix"])
+            ->add('owner', EntityType::class, 
+            ['class'=>User::class, 
+            'choice_label'=>'prenom'])
             // ->add('Ajouter', SubmitType::class)
         ;
     }
