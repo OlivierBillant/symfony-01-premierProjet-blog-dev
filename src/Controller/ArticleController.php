@@ -8,6 +8,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,7 +98,7 @@ class ArticleController extends AbstractController
     public function addArticle(ArticleRepository $ArticleRepo, Request $request)
     {
 
-        if ($this->getUser() == !null) {
+        if (!$this->isGranted("ROLE_USER")) {
             return $this->redirectToRoute('app_login');
         }
 
@@ -125,10 +126,18 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/article/supprimer/{id}", name="app_article_remove", requirements={"id"="\d+"})
      */
     public function removeArticle(ArticleRepository $ArticleRepo, $id = null)
-    {
+    { 
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute('app_login');
+        }
+        // On le remplace par une annotation
+        // if (!$this->isGranted("ROLE_ADMIN")) {
+        //     return $this->redirectToRoute('app_home');
+        // }
         if ($id != null) {
             $article = $ArticleRepo->find($id);
             $ArticleRepo->remove($article, true);
@@ -137,11 +146,18 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/article/modifier/{id}", name="app_article_update", requirements={"id"="\d+"})
      */
     public function updateArticle(Article $article, Request $request, EntityManagerInterface $em)
     {
-
+        if ($this->getUser() == null) {
+            return $this->redirectToRoute('app_login');
+        }
+        // On le remplace par une annotation
+        // if (!$this->isGranted("ROLE_USER")) {
+        //     return $this->redirectToRoute('app_home');
+        // }
         // $article = new Article();
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);

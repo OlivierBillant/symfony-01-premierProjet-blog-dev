@@ -18,7 +18,7 @@
 		<div class="container-fluid">
 			<header>
 				{% set menuConnecte = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "Deconnexion", "A propos"]  %}
-				{% set menuDeconnecte = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "Register", "Login", "A propos"]  %}
+				{% set menuDeconnecte = ["Accueil","Blog","Contact","Liste Article", "Register", "Login", "A propos"]  %}
 				{# Création d'une variable sur twig #}
 				{% if app.user %}
 					{% set menu = menuConnecte  %}

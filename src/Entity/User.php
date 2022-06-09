@@ -45,6 +45,11 @@ class User
      */
     private $articles;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Utilisateur::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $Utilisateur;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -129,6 +134,18 @@ class User
                 $article->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->Utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $Utilisateur): self
+    {
+        $this->Utilisateur = $Utilisateur;
 
         return $this;
     }
