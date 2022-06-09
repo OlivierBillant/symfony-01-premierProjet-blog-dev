@@ -146,7 +146,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/article/modifier/{id}", name="app_article_update", requirements={"id"="\d+"})
      */
     public function updateArticle(Article $article, Request $request, EntityManagerInterface $em)
