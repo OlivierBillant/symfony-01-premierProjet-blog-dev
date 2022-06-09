@@ -17,9 +17,14 @@
 	<body>
 		<div class="container-fluid">
 			<header>
+				{% set menuConnecte = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "Deconnexion", "A propos"]  %}
+				{% set menuDeconnecte = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "Register", "Login", "A propos"]  %}
 				{# Création d'une variable sur twig #}
-				{% set menu = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "A propos"]  %}
-
+				{% if app.user %}
+					{% set menu = menuConnecte  %}
+				{% else %}
+					{% set menu = menuDeconnecte  %}
+				{% endif %}
 				<nav class="navbar navbar-expand-lg bg-light">
 					<div class="container-fluid">
 						<a class="navbar-brand" href="#">Blog Dev</a>
@@ -35,7 +40,7 @@
 										<li class="nav-item">
 											{#  affichage == Echo #}
 											{# <a class="nav-link" aria-current="page" href="{{ (ele|lower|replace({' ': '-'})) }}">{{ele|upper}}</a> #}
-											<a class="nav-link" aria-current="page" href="{{ path('app_'~ele|lower|replace({' ':''})) }}"> {{ele|upper}}</a>
+												<a class="nav-link" aria-current="page" href="{{ path('app_'~ele|lower|replace({' ':''})) }}"> {{ele|upper}}</a>
 											{# Alternativement on peut utiliser pour href : "{{ path('app_'~ele)}}" #}
 										</li>
 									{% else %}
@@ -49,6 +54,13 @@
 								{# Fin de la boucle  #}
 							</ul>
 						</div>
+						{% if app.user %}
+							<div class="mb-3">
+								You are logged in as
+								{{ app.user.userIdentifier }},
+								<a href="{{ path('app_deconnexion') }}">Logout</a>
+							</div>
+						{% endif %}
 					</div>
 				</nav>
 			</header>

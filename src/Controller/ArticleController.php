@@ -96,6 +96,11 @@ class ArticleController extends AbstractController
      */
     public function addArticle(ArticleRepository $ArticleRepo, Request $request)
     {
+
+        if ($this->getUser() == !null) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $article = new Article();
         $articleForm = $this->createForm(ArticleType::class, $article);
         $articleForm->handleRequest($request);
@@ -144,12 +149,11 @@ class ArticleController extends AbstractController
             $em->flush();
             // Ajouter un message de confirmation
             $this->addFlash('success', 'Article modifié');
-
         }
         return $this->render("article/modifier.html.twig", ["articleForm" => $articleForm->createView()]);
     }
 
-     /**
+    /**
      * @Route("/apropos", name="app_apropos")
      */
     public function apropos()
