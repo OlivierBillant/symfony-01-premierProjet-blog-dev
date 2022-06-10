@@ -5,15 +5,26 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\Functions;
 
 class HomeController extends AbstractController {
+
+    // En injectant directement la classe au niveau du constructeur, on 
+    // évitera d'avoir besoin de l'injecter dans chaque class.
+private $functions;
+
+public function __construct(Functions $functions)
+{
+    $this->functions = $functions;
+}
 
     /**
      * @Route("/",name="app_home")
      */
     public function index():Response{
         $a = "Accueil";
-        return $this->render("pages/home.html.twig", ["titre"=>$a]);
+        $result = $this->functions->mult(3,5);
+        return $this->render("pages/home.html.twig", ["titre"=>$a, "result"=>$result]);
     }
 
 
@@ -37,4 +48,7 @@ class HomeController extends AbstractController {
     public function contact():Response{
         return $this->render("pages/contact.html.twig");
     }
+
+
+    
 }

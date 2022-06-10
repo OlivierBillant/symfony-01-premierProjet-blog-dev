@@ -15,6 +15,7 @@
 
 	</head>
 	<body>
+		
 		<div class="container-fluid">
 			<header>
 				{% set menuConnecte = ["Accueil","Blog","Contact","Liste Article","Ajouter Article", "Deconnexion", "A propos"]  %}
@@ -63,8 +64,10 @@
 						{% endif %}
 					</div>
 				</nav>
+				
 			</header>
-			<main class="col-6 offset-3 d-flex flex-column min-vh-100"> {% block main %}{% endblock %}
+			<main class="col-6 offset-3 d-flex flex-column min-vh-100"> 
+				{% block main %}{% endblock %}
 				</main>
 				<div>
 					<footer class="mt-auto">
